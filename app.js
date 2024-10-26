@@ -1,6 +1,15 @@
-const _ = require('lodash')
+const express = require("express");
+const app = express();
+const people = require('./routes/people')
 
-items = [1, [2, [3, [4]]]];
-const newItems = _.flattenDeep(items);
+app.use(express.static("./methods-public"));
 
-console.log(newItems);
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json())
+
+app.use('/api/people', people)
+
+app.listen(5000, () => {
+  console.log("listen on 5000");
+});
